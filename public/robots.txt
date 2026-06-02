@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://selim-topuz.dev/sitemap.xml
