@@ -421,7 +421,6 @@ function measureEdgeLabelBox(lines: string[]) {
     height: lines.length * lineHeight + paddingY * 2,
     fontSize,
     lineHeight,
-    paddingX,
     paddingY,
   };
 }
