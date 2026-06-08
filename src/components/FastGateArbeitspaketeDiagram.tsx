@@ -236,7 +236,6 @@ export function FastGateArbeitspaketeDiagram({
   const subBoxRightX = hubInnerX + subBoxW + subBoxGap;
   const ap3CenterX = hubInnerX + subBoxW / 2;
   const metaCenterX = subBoxRightX + subBoxW / 2;
-  const hubCenterX = hubInnerX + innerW / 2;
   const hubMidY = hubY + hubH / 2;
   const hubBottom = hubY + hubH;
 
@@ -258,7 +257,6 @@ export function FastGateArbeitspaketeDiagram({
   const ap2X = ap4X;
   const ap2W = itBoxX - ap2X - ap2GapToIt;
   const ap2Y = hubBottom + hubToAp2Gap;
-  const ap2CenterX = ap2X + ap2W / 2;
   const ap2ArrowX = ap2X + ap2W - 36;
   const itBoxY = ap2Y;
   const itBoxCenterX = (ap3CenterX + metaCenterX) / 2;

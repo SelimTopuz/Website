@@ -6,7 +6,7 @@ describe("timelineDetails", () => {
     const detail = getTimelineDetailBySlug("fastgate");
 
     expect(detail?.title).toBe("FastGate");
-    expect(detail?.sections.length).toBeGreaterThan(0);
+    expect(detail?.sections?.length).toBeGreaterThan(0);
   });
 
   it("resolves GenAI4PC by slug with tabs", () => {

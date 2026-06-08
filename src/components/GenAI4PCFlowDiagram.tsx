@@ -437,7 +437,7 @@ function FlowEdgeLabel({
 }) {
   if (!active) return null;
 
-  const { width, height, fontSize, lineHeight, paddingX, paddingY } =
+  const { width, height, fontSize, lineHeight, paddingY } =
     measureEdgeLabelBox(label.lines);
   const anchor = label.anchor ?? "middle";
   const boxX =
