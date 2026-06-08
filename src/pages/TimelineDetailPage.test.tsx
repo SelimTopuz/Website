@@ -22,43 +22,36 @@ describe("TimelineDetailPage", () => {
       screen.getByRole("heading", { level: 1, name: "FastGate" }),
     ).toBeInTheDocument();
     expect(screen.getByText("Ziel des Projekts")).toBeInTheDocument();
+    expect(screen.getByText(/Mein Aufgabenbereich/)).toBeInTheDocument();
     expect(
-      screen.getByText(/Logische Architektur \(BDD\)/),
-    ).toBeInTheDocument();
+      screen.getByRole("link", { name: "AP2 – Robuste Sensorik" }),
+    ).toHaveAttribute("href", "/projekte/fastgate/models#ap2");
     expect(
-      screen.getByText(/Apron Data Collector System → AP2/),
+      screen.getByText(/Zusammenhänge der Arbeitspakete AP1–AP6/),
     ).toBeInTheDocument();
     expect(screen.getByAltText(/SOI mit vier Subsystemen/)).toHaveAttribute(
       "src",
-      "/media/fastgate-bdd-subsystems.png",
+      "/media/fastgate-bdd-subsystems.jpg",
     );
     expect(
-      screen.getByText(/Interne Schnittstellen \(ibd\)/),
+      screen.getByText(/AP2 Apron Data Collector System, AP3 Central Data Space System/),
     ).toBeInTheDocument();
+    expect(screen.getByText("Ergebnis")).toBeInTheDocument();
     expect(
-      screen.getByAltText(/Datenflüsse zwischen Apron Data Collector/),
-    ).toHaveAttribute("src", "/media/fastgate-ibd-soi.png");
+      screen.queryByText(/Modellierung & Methoden/),
+    ).not.toBeInTheDocument();
     expect(
-      screen.getByText(/State Machines, Smartwatch-App & Simulation/),
-    ).toBeInTheDocument();
-    const video = document.querySelector("video");
-    expect(video).toBeTruthy();
-    expect(video?.querySelector("source")).toHaveAttribute(
-      "src",
-      "/media/fastgate-statemachines.mp4",
-    );
+      screen.queryByText(/State Machines, Smartwatch-App & Simulation/),
+    ).not.toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: /Projektwebsite FastGate/ }),
+      screen.getByRole("link", { name: "FastGate" }),
     ).toHaveAttribute(
       "href",
       "https://innovationsflughafen.de/projekte/fastgate/",
     );
     expect(
-      screen.getByRole("link", { name: "offiziellen Projektwebsite" }),
-    ).toHaveAttribute(
-      "href",
-      "https://innovationsflughafen.de/projekte/fastgate/",
-    );
+      screen.queryByRole("link", { name: /Projektwebsite FastGate/ }),
+    ).not.toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "← Zurück zum Werdegang" }),
     ).toHaveAttribute(

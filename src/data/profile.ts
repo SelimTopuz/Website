@@ -5,7 +5,13 @@ import {
 
 export type TextSegment =
   | { type: "text"; value: string }
-  | { type: "link"; label: string; url: string };
+  | {
+      type: "link";
+      label: string;
+      url: string;
+      /** No underline (e.g. project title in intro). */
+      plain?: boolean;
+    };
 
 export interface TimelineLogo {
   alt: string;
@@ -16,7 +22,7 @@ export interface TimelineLogo {
 export interface TimelineModuleHighlight {
   title: string;
   period?: string;
-  badge?: "MVP" | "Honorable Mention" | "Lehrpreis" | "In Arbeit";
+  badge?: "Lehrpreis" | "In Arbeit";
   grade?: string;
   description?: string;
   descriptionSegments?: TextSegment[];
@@ -93,13 +99,17 @@ export const profile: Profile = {
   name: "Selim Topuz",
   tagline: "Bereit durchzustarten und meinen Platz zu finden. 🚀🌱🌟",
   avatarUrl: "/profile.jpg",
-  email: "selim.topuz@example.com",
+  email: "selim.topuz10.5@gmail.com",
   location: "Deutschland",
   siteUrl: "https://selim-topuz.dev",
   socialLinks: [
-    { label: "GitHub", url: "https://github.com", icon: "github" },
-    { label: "LinkedIn", url: "https://linkedin.com", icon: "linkedin" },
-    { label: "E-Mail", url: "mailto:selim.topuz@example.com", icon: "email" },
+    { label: "GitHub", url: "https://github.com/SelimTopuz", icon: "github" },
+    {
+      label: "LinkedIn",
+      url: "https://www.linkedin.com/in/selim-topuz/",
+      icon: "linkedin",
+    },
+    { label: "E-Mail", url: "mailto:selim.topuz10.5@gmail.com", icon: "email" },
   ],
   timelineRows: [
     {
@@ -305,6 +315,7 @@ export const profile: Profile = {
               {
                 title: "GenAI4PC",
                 period: "01.10.2025 – 01.05.2026",
+                detailSlug: "genai4pc",
                 description:
                   "Entwicklung eines AI-Agenten, der Studierenden beim Erlernen von Vorlesungsinhalten hilft. Fokus: Wie GenAI beim Lernenden tatsächlich Verständnis schafft. Prototyp extrahiert zentrale Konzepte aus Vorlesungsmaterial und generiert daraus Übungsaufgaben zum selbstständigen Lösen. Der Agent erklärt Aufgaben, evaluiert Antworten und beantwortet Fragen zu den Vorlesungsinhalten.",
               },
@@ -481,17 +492,9 @@ export const profile: Profile = {
               },
               {
                 title: "Software Engineering",
-                badge: "MVP",
                 grade: "1,0",
                 description:
                   "Das Modul, das mein Interesse an Softwareentwurf geweckt hat. Modellbasierte Softwareentwicklung: Vorgehensmodelle (klassisch und agil), Modellierungssprachen und Werkzeuge – mit besonderem Fokus auf UML. Von der Anforderungsspezifikation über Architektur- und Softwareentwurf bis zu Implementierung und Test haben wir Lösungen durchgängig modelliert. Hier habe ich erkannt, wie viel mir das Planen, Mitgestalten und präzise Entwerfen von Software bedeutet – und wie sehr gute Entwürfe alle folgenden Schritte effizienter machen.",
-              },
-              {
-                title: "Analysis für Informatiker",
-                badge: "Honorable Mention",
-                grade: "2,3",
-                description:
-                  "Unter Wirtschaftsinformatik-Studierenden galt es als typisches Rausschmeißmodul – im Kern komplexe Uni-Mathematik. Ich habe es bewusst als Challenge gesehen, beim ersten Versuch zu bestehen und eine solide Note zu erreichen. Für meinen weiteren Werdegang hat es wenig praktischen Nutzen gebracht – daher nur Honorable Mention.",
               },
             ],
           },

@@ -1,5 +1,6 @@
 import { profile } from "../data/profile";
 import { SocialIcon } from "./ContentBlocks";
+import { MailtoLink } from "./MailtoLink";
 
 const AVATAR_FRAME_CLASS = "h-48 w-48 sm:h-56 sm:w-56";
 
@@ -26,7 +27,7 @@ export default function ProfileHeader() {
             height={336}
             decoding="async"
             fetchPriority="high"
-            className="absolute -top-[3%] left-1/2 h-[108%] w-auto max-w-none min-w-[108%] -translate-x-1/2 object-cover"
+            className="absolute inset-0 h-full w-full object-cover object-[50%_32%]"
           />
         </div>
 
@@ -42,21 +43,25 @@ export default function ProfileHeader() {
             <ul className="flex flex-wrap gap-2">
               {profile.socialLinks.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.url}
-                    target={
-                      link.url.startsWith("mailto:") ? undefined : "_blank"
-                    }
-                    rel={
-                      link.url.startsWith("mailto:")
-                        ? undefined
-                        : "noopener noreferrer"
-                    }
-                    aria-label={link.label}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-icon-bg)] text-white transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-link)]"
-                  >
-                    <SocialIcon icon={link.icon} />
-                  </a>
+                  {link.icon === "email" ? (
+                    <MailtoLink
+                      email={profile.email}
+                      ariaLabel={link.label}
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-icon-bg)] text-white transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-link)]"
+                    >
+                      <SocialIcon icon="email" />
+                    </MailtoLink>
+                  ) : (
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.label}
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-icon-bg)] text-white transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-link)]"
+                    >
+                      <SocialIcon icon={link.icon} />
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

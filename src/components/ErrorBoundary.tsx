@@ -1,4 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import { profile } from "../data/profile";
+import { MailtoLink } from "./MailtoLink";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -35,7 +37,14 @@ export default class ErrorBoundary extends Component<
             </h1>
             <p className="mt-3 text-[var(--color-text-muted)]">
               Bitte lade die Seite neu. Falls das Problem bleibt, kontaktiere
-              mich per E-Mail.
+              mich per E-Mail:{" "}
+              <MailtoLink
+                email={profile.email}
+                className="font-medium text-[var(--color-link)] underline decoration-[var(--color-link)]/30 underline-offset-2 hover:decoration-[var(--color-link)]"
+              >
+                {profile.email}
+              </MailtoLink>
+              .
             </p>
             <button
               type="button"

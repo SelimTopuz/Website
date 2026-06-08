@@ -5,6 +5,7 @@ import {
   timelineAnchorIdFromUrl,
 } from "../utils/timelineAnchors";
 import { scrollToSection } from "../utils/scroll";
+import { emailFromMailto, MailtoLink } from "./MailtoLink";
 
 interface RichParagraphProps {
   segments: TextSegment[];
@@ -13,6 +14,9 @@ interface RichParagraphProps {
 
 const externalLinkClassName =
   "inline-flex items-baseline gap-0.5 text-[var(--color-link)] underline decoration-[var(--color-link)]/30 underline-offset-2 hover:decoration-[var(--color-link)]";
+
+const plainLinkClassName =
+  "font-medium text-[var(--color-link)] no-underline hover:underline hover:decoration-[var(--color-link)]/30 hover:underline-offset-2";
 
 const crossRefLinkClassName =
   "underline decoration-current/40 underline-offset-2 transition-colors hover:text-[var(--color-link)] hover:decoration-[var(--color-link)]";
@@ -62,23 +66,34 @@ export function RichParagraph({ segments, muted = false }: RichParagraphProps) {
             );
           }
 
+          const linkClassName = segment.plain
+            ? plainLinkClassName
+            : externalLinkClassName;
+
+          const mailtoEmail = emailFromMailto(segment.url);
+          if (mailtoEmail) {
+            return (
+              <MailtoLink
+                key={`${segment.url}-${index}`}
+                email={mailtoEmail}
+                className={linkClassName}
+              >
+                {segment.label}
+              </MailtoLink>
+            );
+          }
+
           return (
             <a
               key={`${segment.url}-${index}`}
               href={segment.url}
-              target={segment.url.startsWith("mailto:") ? undefined : "_blank"}
-              rel={
-                segment.url.startsWith("mailto:")
-                  ? undefined
-                  : "noopener noreferrer"
-              }
-              title={
-                segment.url.startsWith("mailto:") ? undefined : "Externer Link"
-              }
-              className={externalLinkClassName}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Externer Link"
+              className={linkClassName}
             >
               {segment.label}
-              {!segment.url.startsWith("mailto:") && <ExternalLinkIcon />}
+              {!segment.plain && <ExternalLinkIcon />}
             </a>
           );
         }

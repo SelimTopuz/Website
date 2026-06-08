@@ -55,9 +55,18 @@ describe("CareerTimeline", () => {
       "href",
       "/projekte/fastgate",
     );
+    expect(screen.getByRole("link", { name: "GenAI4PC" })).toHaveAttribute(
+      "href",
+      "/projekte/genai4pc",
+    );
+    const mehrErfahrenLinks = screen.getAllByRole("link", {
+      name: "Mehr erfahren →",
+    });
     expect(
-      screen.getByRole("link", { name: "Mehr erfahren →" }),
-    ).toHaveAttribute("href", "/projekte/fastgate");
+      mehrErfahrenLinks.map((link) => link.getAttribute("href")),
+    ).toEqual(
+      expect.arrayContaining(["/projekte/fastgate", "/projekte/genai4pc"]),
+    );
     expect(screen.getByText("01.12.2024 – 31.09.2025")).toBeInTheDocument();
     expect(
       screen.getAllByRole("link", { name: "Eviden" }).length,

@@ -1,6 +1,9 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import { RichParagraph } from "../components/ContentBlocks";
-import { DetailMedia } from "../components/DetailMedia";
+import {
+  TimelineDetailSections,
+  TimelineDetailTabs,
+} from "../components/TimelineDetailTabs";
 import { getTimelineDetailBySlug } from "../data/timelineDetails";
 
 const moduleBadgeClass =
@@ -23,11 +26,13 @@ export default function TimelineDetailPage() {
         ← Zurück zum Werdegang
       </Link>
 
-      <header className="mt-6 space-y-2 border-b border-[var(--color-border)] pb-6">
+      <header
+        className={`mt-6 space-y-2 ${detail.tabs ? "pb-3" : "border-b border-[var(--color-border)] pb-6"}`}
+      >
         <p className="text-sm font-medium text-[var(--color-text-muted)]">
           {detail.contextLabel}
         </p>
-        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <h1 className="text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
             {detail.title}
           </h1>
@@ -50,35 +55,25 @@ export default function TimelineDetailPage() {
         )}
       </header>
 
-      <div className="space-y-8 pt-8 text-[15px]">
+      <div
+        className={`text-[15px] ${detail.tabs ? "space-y-5 pt-4" : "space-y-8 pt-8"}`}
+      >
         {detail.intro.map((paragraph, index) => (
           <RichParagraph key={`intro-${index}`} segments={paragraph} />
         ))}
 
-        {detail.sections.map((section) => (
-          <section key={section.title} className="space-y-3">
-            <h2 className="text-lg font-semibold text-[var(--color-text)] sm:text-xl">
-              {section.title}
-            </h2>
-            {section.paragraphs.map((paragraph, index) => (
-              <RichParagraph
-                key={`${section.title}-${index}`}
-                segments={paragraph}
-                muted
-              />
-            ))}
-            {section.listItems && section.listItems.length > 0 && (
-              <ul className="list-disc space-y-1.5 pl-5 text-[var(--color-text-muted)]">
-                {section.listItems.map((item) => (
-                  <li key={item} className="leading-relaxed">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-            {section.media && <DetailMedia media={section.media} />}
-          </section>
-        ))}
+        {detail.tabs ? (
+          <TimelineDetailTabs
+            tabs={detail.tabs}
+            tablistLabel={`${detail.title} – Bereiche`}
+          />
+        ) : (
+          detail.sections && (
+            <div className="space-y-8">
+              <TimelineDetailSections sections={detail.sections} />
+            </div>
+          )
+        )}
       </div>
     </article>
   );
