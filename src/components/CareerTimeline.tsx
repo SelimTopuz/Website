@@ -1,25 +1,14 @@
-import { useEffect } from "react";
 import { profile } from "../data/profile";
 import {
   flattenTimelineRows,
   sortEventsForDisplay,
 } from "../utils/timelineLayout";
-import { scrollToSection } from "../utils/scroll";
 import { SideEntryCard } from "./TimelineSideEntry";
 
 export default function CareerTimeline() {
   const events = sortEventsForDisplay(
     flattenTimelineRows(profile.timelineRows),
   );
-
-  useEffect(() => {
-    const anchorId = window.location.hash.slice(1);
-    if (!anchorId.startsWith("timeline-")) return;
-
-    requestAnimationFrame(() => {
-      scrollToSection(anchorId, { updateHash: false });
-    });
-  }, []);
 
   return (
     <section

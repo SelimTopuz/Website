@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { Link, useHref } from "react-router-dom";
+import { Link, type To } from "react-router-dom";
 
 export const FASTGATE_MODELS_PATH = "/projekte/fastgate/models";
 
@@ -106,7 +106,7 @@ function ApBannerLabel({
 }
 
 interface ApBoxProps {
-  to: string;
+  to: To;
   label: string;
   x: number;
   y: number;
@@ -215,10 +215,10 @@ export function FastGateArbeitspaketeDiagram({
   modelsPagePath = FASTGATE_MODELS_PATH,
   caption,
 }: FastGateArbeitspaketeDiagramProps) {
-  const ap2Href = useHref(`${modelsPagePath}#ap2`);
-  const ap3Href = useHref(`${modelsPagePath}#ap3`);
-  const ap4Href = useHref(`${modelsPagePath}#ap4`);
-  const ap5Href = useHref(`${modelsPagePath}#ap5`);
+  const modelLink = (hash: string): To => ({
+    pathname: modelsPagePath,
+    hash,
+  });
   const hubX = 248;
   const hubY = 108;
   const hubPad = 10;
@@ -482,7 +482,7 @@ export function FastGateArbeitspaketeDiagram({
 
         {/* Click targets on top so arrows/labels do not block hits (esp. AP4). */}
         <ApBox
-          to={ap4Href}
+          to={modelLink("ap4")}
           label="AP4 – High-Driving Automation"
           x={ap4X}
           y={ap4Y}
@@ -503,7 +503,7 @@ export function FastGateArbeitspaketeDiagram({
         />
 
         <ApBox
-          to={ap3Href}
+          to={modelLink("ap3")}
           label="AP3 – HD-Mapping / Zentrale Datenplattform"
           x={hubInnerX}
           y={subBoxBottomY}
@@ -521,7 +521,7 @@ export function FastGateArbeitspaketeDiagram({
         />
 
         <ApBox
-          to={ap2Href}
+          to={modelLink("ap2")}
           label="AP2 – Robuste Sensorik"
           x={ap2X}
           y={ap2Y}
@@ -533,7 +533,7 @@ export function FastGateArbeitspaketeDiagram({
         />
 
         <ApBox
-          to={ap5Href}
+          to={modelLink("ap5")}
           label="AP5 – Digitaler Zwilling"
           x={ap5X}
           y={ap5Y}

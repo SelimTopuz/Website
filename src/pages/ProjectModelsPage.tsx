@@ -1,22 +1,10 @@
-import { useEffect } from "react";
-import { Link, Navigate, useLocation, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { DetailMedia } from "../components/DetailMedia";
 import { getProjectModelsBySlug } from "../data/fastgateModels";
-import { scrollToSection } from "../utils/scroll";
 
 export default function ProjectModelsPage() {
   const { slug } = useParams<{ slug: string }>();
-  const location = useLocation();
   const page = getProjectModelsBySlug(slug);
-
-  useEffect(() => {
-    const anchorId = location.hash.slice(1);
-    if (!anchorId) return;
-
-    requestAnimationFrame(() => {
-      scrollToSection(anchorId, { updateHash: false });
-    });
-  }, [location.pathname, location.hash]);
 
   if (!page) {
     return <Navigate to="/" replace />;

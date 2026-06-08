@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { scrollToSection } from "./scroll";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { scheduleScrollToSection, scrollToSection } from "./scroll";
 
 function mockMatchMedia(reducedMotion: boolean) {
   vi.stubGlobal(
@@ -57,5 +57,41 @@ describe("scrollToSection", () => {
       behavior: "auto",
       block: "start",
     });
+  });
+});
+
+describe("scheduleScrollToSection", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+    mockMatchMedia(false);
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.restoreAllMocks();
+  });
+
+  it("retries scrolling until cleanup", () => {
+    const scrollIntoView = vi.fn();
+    const focus = vi.fn();
+    const element = {
+      scrollIntoView,
+      focus,
+      querySelectorAll: vi.fn().mockReturnValue([]),
+    } as unknown as HTMLElement;
+
+    vi.spyOn(document, "getElementById").mockReturnValue(element);
+
+    const cleanup = scheduleScrollToSection("ap3", { updateHash: false });
+
+    expect(scrollIntoView).toHaveBeenCalledTimes(1);
+
+    vi.runAllTimers();
+    expect(scrollIntoView.mock.calls.length).toBeGreaterThan(1);
+
+    cleanup();
+    const callsAfterCleanup = scrollIntoView.mock.calls.length;
+    vi.runAllTimers();
+    expect(scrollIntoView.mock.calls.length).toBe(callsAfterCleanup);
   });
 });

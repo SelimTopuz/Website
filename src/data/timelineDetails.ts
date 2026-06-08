@@ -19,7 +19,7 @@ export interface TimelineDetailSection {
 const FASTGATE_PROJECT_URL =
   "https://innovationsflughafen.de/projekte/fastgate/";
 
-const GENAI4PC_PROJECT_URL = "https://www.uni-paderborn.de/en/project/1630";
+const GENAI4PC_PROJECT_URL = "https://www.uni-paderborn.de/projekt/1630";
 
 const GENAI4PC_REPO_URL = "https://github.com/SelimTopuz/GenAI4PC";
 
